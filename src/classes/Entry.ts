@@ -1,4 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
+import ApproxNumber from './ApproxNumber';
+import isEqual from 'lodash/isEqual';
 
 @JsonObject("Entry")
 export default class Entry {
@@ -17,18 +19,18 @@ export default class Entry {
   @JsonProperty("name", String)
   name?: string;
 
-  @JsonProperty("min_abv", Object)
-  minAbv?: any;
-  @JsonProperty("max_abv", Object)
-  maxAbv?: any;
+  @JsonProperty("min_abv", ApproxNumber)
+  minAbv: ApproxNumber | null;
+  @JsonProperty("max_abv", ApproxNumber)
+  maxAbv: ApproxNumber | null;
   @JsonProperty("multiplier", Number)
   multiplier?: number;
 
-  @JsonProperty("min_quantity", Object)
-  minQuantity?: any;
+  @JsonProperty("min_quantity", ApproxNumber)
+  minQuantity?: ApproxNumber;
 
-  @JsonProperty("max_quantity", Object)
-  maxQuantity?: any;
+  @JsonProperty("max_quantity", ApproxNumber)
+  maxQuantity?: ApproxNumber;
 
   @JsonProperty("volume", Object)
   volume?: any | null;
@@ -47,8 +49,8 @@ export default class Entry {
     this.time = undefined;
     this.drinkId = undefined;
     this.name = undefined;
-    this.minAbv = undefined;
-    this.maxAbv = undefined;
+    this.minAbv = null;
+    this.maxAbv = null;
     this.multiplier = undefined;
     this.minQuantity = undefined;
     this.maxQuantity = undefined;
@@ -56,5 +58,17 @@ export default class Entry {
     this.volumeMl = undefined;
     this.createdAt = undefined;
     this.updatedAt = undefined;
+  }
+
+  get abvString() {
+    if (!isEqual(this.minAbv, this.maxAbv)) {
+      return `${this.minAbv!.toString()}-${this.maxAbv!.toString()}`;
+    }
+
+    if (this.minAbv == null) {
+      return "";
+    }
+
+    return this.minAbv!.toString();
   }
 }
