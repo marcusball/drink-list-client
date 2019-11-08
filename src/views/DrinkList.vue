@@ -7,48 +7,53 @@
         :drink="drink"
         class="columns dg-gray m-2 p-2"
       >
-        <span>{{ drink.name }}</span>
       </Drink>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { JsonConvert } from "json2typescript";
 import Drink from "@/components/Drink";
+import Entry from "@/classes/Entry";
 
-export default {
-  data() {
-    return {
-      drinks: []
-    };
-  },
+import { Component, Vue, Prop } from "vue-property-decorator";
 
+@Component({
   components: {
     Drink
-  },
-
-  created: function() {
-    this.refreshDrinkList();
-  },
-
-  methods: {
-    refreshDrinkList: function() {
-      const self = this;
-      const API_BASE = process.env.VUE_APP_API_URL;
-
-      fetch(`${API_BASE}/drink`)
-        .then(resp => resp.json())
-        .then(result => {
-          if (result.status != "success") {
-            throw new Error(result.messages[0]);
-          }
-
-          self.drinks = result.data.drinks;
-        })
-        .catch(err => {
-          alert(err);
-        });
-    }
   }
-};
+})
+export default class DrinkList extends Vue {
+  @Prop()
+  drinks: Entry[] = [];
+
+  created() {
+    this.refreshDrinkList();
+  }
+
+  refreshDrinkList() {
+    const self = this;
+    const API_BASE = process.env.VUE_APP_API_URL;
+
+    fetch(`${API_BASE}/drink`)
+      .then(resp => resp.json())
+      .then(result => {
+        if (result.status != "success") {
+          throw new Error(result.messages[0]);
+        }
+
+        let jsonConvert: JsonConvert = new JsonConvert();
+
+        let drinks: Entry[] = [];
+
+        drinks = jsonConvert.deserializeArray(result.data.drinks, Entry);
+
+        self.drinks = drinks;
+      })
+      .catch(err => {
+        alert(err);
+      });
+  }
+}
 </script>

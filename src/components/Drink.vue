@@ -1,7 +1,7 @@
 <template>
   <div class="columns">
     <div class="col-6">
-      {{ drink.drank_on }}, {{ drink.name }}, {{ drink.min_abv.num }}%,
+      {{ drink.drankOn }}, {{ drink.name }}, {{ drink.minAbv.num }}%,
       {{ drink.volume[0].num }} {{ drink.volume[1] }}
     </div>
   </div>
@@ -9,10 +9,11 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
+import { Entry } from "@/classes/Entry";
 
 @Component({})
 export default class Drink extends Vue {
   @Prop()
-  private drink!: any;
+  private drink!: Entry;
 }
 </script>
