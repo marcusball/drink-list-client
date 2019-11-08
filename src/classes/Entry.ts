@@ -1,5 +1,6 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import ApproxNumber from './ApproxNumber';
+import LiquidVolume from "./LiquidVolume";
 import isEqual from 'lodash/isEqual';
 
 @JsonObject("Entry")
@@ -32,10 +33,10 @@ export default class Entry {
   @JsonProperty("max_quantity", ApproxNumber)
   maxQuantity?: ApproxNumber;
 
-  @JsonProperty("volume", Object)
-  volume?: any | null;
-  @JsonProperty("volume_ml", Object)
-  volumeMl?: any | null;
+  @JsonProperty("volume", LiquidVolume)
+  volume: LiquidVolume | null;
+  @JsonProperty("volume_ml", LiquidVolume)
+  volumeMl: LiquidVolume | null;
 
   @JsonProperty("created_at", String)
   createdAt?: string;
@@ -54,8 +55,8 @@ export default class Entry {
     this.multiplier = undefined;
     this.minQuantity = undefined;
     this.maxQuantity = undefined;
-    this.volume = undefined;
-    this.volumeMl = undefined;
+    this.volume = null;
+    this.volumeMl = null;
     this.createdAt = undefined;
     this.updatedAt = undefined;
   }
@@ -82,5 +83,9 @@ export default class Entry {
     }
 
     return this.minQuantity!.toString();
+  }
+
+  get volumeString() {
+    return this.volume ? this.volume.toString() : "";
   }
 }
