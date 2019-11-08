@@ -1,14 +1,6 @@
 <template>
   <div class="container">
-    <div class="columns">
-      <Drink
-        v-for="drink in drinks"
-        :key="drink.id"
-        :drink="drink"
-        class="columns dg-gray m-2 p-2"
-      >
-      </Drink>
-    </div>
+    <Drink v-for="drink in drinks" :key="drink.id" :drink="drink"> </Drink>
   </div>
 </template>
 

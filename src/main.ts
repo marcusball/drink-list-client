@@ -4,6 +4,9 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 
+// Add Spectre.css
+import './assets/sass/main.scss';
+
 Vue.config.productionTip = false;
 
 new Vue({
