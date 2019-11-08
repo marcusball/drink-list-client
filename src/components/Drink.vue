@@ -1,8 +1,8 @@
 <template>
   <div class="columns">
     <div class="col-6">
-      {{ drink.drankOn }}, {{ drink.name }}, {{ drink.abvString }}%,
-      {{ drink.volume[0].num }} {{ drink.volume[1] }}
+      {{ drink.drankOn }}, {{ drink.quantityString }}, {{ drink.name }},
+      {{ drink.abvString }}%, {{ drink.volume[0].num }} {{ drink.volume[1] }}
     </div>
   </div>
 </template>

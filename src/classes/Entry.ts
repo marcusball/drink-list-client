@@ -71,4 +71,16 @@ export default class Entry {
 
     return this.minAbv!.toString();
   }
+
+  get quantityString() {
+    if (!isEqual(this.minQuantity, this.maxQuantity)) {
+      return `${this.minQuantity!.toString()}-${this.maxQuantity!.toString()}`;
+    }
+
+    if (this.minQuantity == null) {
+      throw new Error("Entry quantity can not be null!");
+    }
+
+    return this.minQuantity!.toString();
+  }
 }
