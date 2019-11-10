@@ -17,7 +17,6 @@ import { Component, Vue, Prop } from "vue-property-decorator";
   }
 })
 export default class DrinkList extends Vue {
-  @Prop()
   drinks: Entry[] = [];
 
   created() {
