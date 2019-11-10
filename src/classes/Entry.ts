@@ -14,6 +14,9 @@ export default class Entry {
   @JsonProperty("time", String)
   time?: string;
 
+  @JsonProperty("context", [String])
+  context?: string[];
+
   @JsonProperty("drink_id", Number)
   drinkId?: number;
 
@@ -48,6 +51,7 @@ export default class Entry {
     this.id = undefined;
     this.drankOn = undefined;
     this.time = undefined;
+    this.context = undefined;
     this.drinkId = undefined;
     this.name = undefined;
     this.minAbv = null;
