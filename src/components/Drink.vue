@@ -3,7 +3,7 @@
     <div class="column col-2 text-left">{{ drink.drankOn }}</div>
     <div class="column col-1 text-left">{{ drink.quantityString }}</div>
     <div class="column col-5 text-left">{{ drink.name }}</div>
-    <div class="column col-2 text-left">{{ drink.abvString }}%</div>
+    <div class="column col-2 text-left">{{ drink.abvString }}</div>
     <div class="column col-2 text-left">{{ drink.volumeString }}</div>
   </div>
 </template>

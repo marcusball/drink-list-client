@@ -1,7 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
-import ApproxNumber from './ApproxNumber';
+import ApproxNumber from "./ApproxNumber";
 import LiquidVolume from "./LiquidVolume";
-import isEqual from 'lodash/isEqual';
+import isEqual from "lodash/isEqual";
 
 @JsonObject("Entry")
 export default class Entry {
@@ -63,19 +63,19 @@ export default class Entry {
 
   get abvString() {
     if (!isEqual(this.minAbv, this.maxAbv)) {
-      return `${this.minAbv!.toString()}-${this.maxAbv!.toString()}`;
+      return `${this.minAbv!.toString()}-${this.maxAbv!.toString()}%`;
     }
 
     if (this.minAbv == null) {
       return "";
     }
 
-    return this.minAbv!.toString();
+    return `${this.minAbv!.toString()}%`;
   }
 
   get quantityString() {
     if (!isEqual(this.minQuantity, this.maxQuantity)) {
-      return `${this.minQuantity!.toString()}-${this.maxQuantity!.toString()}`;
+      return `${this.minQuantity!.toString()} -${this.maxQuantity!.toString()} `;
     }
 
     if (this.minQuantity == null) {
