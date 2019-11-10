@@ -1,6 +1,7 @@
 import { JsonObject, JsonProperty } from "json2typescript";
 import ApproxNumber from "./ApproxNumber";
 import LiquidVolume from "./LiquidVolume";
+import DateConverter from "./DateConverter";
 import isEqual from "lodash/isEqual";
 
 @JsonObject("Entry")
@@ -8,8 +9,8 @@ export default class Entry {
   @JsonProperty("id", Number)
   id?: number;
 
-  @JsonProperty("drank_on", String)
-  drankOn?: string;
+  @JsonProperty("drank_on", DateConverter)
+  drankOn?: Date;
 
   @JsonProperty("time", String)
   time?: string;
