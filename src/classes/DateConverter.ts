@@ -6,6 +6,8 @@ export default class DateConverter implements JsonCustomConvert<Date> {
     return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
   }
   deserialize(date: any): Date {
-    return new Date(date);
+    let d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+    return d;
   }
 }

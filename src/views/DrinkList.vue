@@ -1,19 +1,25 @@
 <template>
   <div class="container">
-    <Drink v-for="drink in drinks" :key="drink.id" :drink="drink"> </Drink>
+    <DayComponent
+      v-for="day in groupedDrinkList"
+      :key="day.date.getTime()"
+      :day="day"
+    >
+    </DayComponent>
   </div>
 </template>
 
 <script lang="ts">
 import { JsonConvert } from "json2typescript";
-import Drink from "@/components/Drink";
+import DayComponent from "@/components/Day";
 import Entry from "@/classes/Entry";
+import Day from "@/classes/Day";
 
 import { Component, Vue, Prop } from "vue-property-decorator";
 
 @Component({
   components: {
-    Drink
+    DayComponent
   }
 })
 export default class DrinkList extends Vue {
@@ -45,6 +51,61 @@ export default class DrinkList extends Vue {
       .catch(err => {
         alert(err);
       });
+  }
+
+  /**
+   * Get all of the `drinks` grouped by `Day`.
+   *
+   * @returns Day[]
+   */
+  get groupedDrinkList() {
+    let days = [];
+
+    // Which date was the last one processed from the `drinks` array.
+    let currentDate = null;
+    for (const entry of this.drinks) {
+      // If this entry's `drankOn` date is not the `currentDate`,
+      // then we need to create a new Day object to contain this entry.
+      if (
+        currentDate == null ||
+        currentDate.getTime() != entry.drankOn!.getTime()
+      ) {
+        // Satisfy typescript
+        if (!entry.drankOn) {
+          throw new Error("Drank on date was somehow undefined");
+        }
+
+        days.push(new Day(entry.drankOn));
+        currentDate = entry.drankOn;
+      }
+
+      // Get the most recently created day.
+      let day = days[days.length - 1];
+
+      // Verify I didn't fuck up this algorithm.
+      if (day.date.getTime() != entry.drankOn!.getTime()) {
+        throw new Error("Assertion failed: mismatched dates!");
+      }
+
+      switch (entry.time!.toLowerCase()) {
+        case "morning":
+          day.morning.push(entry);
+          break;
+        case "afternoon":
+          day.afternoon.push(entry);
+          break;
+        case "evening":
+          day.evening.push(entry);
+          break;
+        case "night":
+          day.night.push(entry);
+          break;
+        default:
+          throw new Error("Unknown entry `time`: " + entry.time);
+      }
+    }
+
+    return days;
   }
 }
 </script>

@@ -1,7 +1,6 @@
 <template>
   <div class="columns">
     <div class="column col-2 text-left">
-      {{ drink.drankOn }}
       <sub v-for="context in drink.context" :key="context">{{ context }}</sub>
     </div>
     <div class="column col-1 text-left">{{ drink.quantityString }}</div>

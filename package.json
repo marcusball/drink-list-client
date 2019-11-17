@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "core-js": "^3.3.2",
+    "date-fns": "^2.7.0",
     "json2typescript": "^1.2.3",
     "lodash": "^4.17.15",
     "register-service-worker": "^1.6.2",
@@ -22,8 +23,8 @@
   },
   "devDependencies": {
     "@types/chai": "^4.1.0",
-    "@types/mocha": "^5.2.4",
     "@types/lodash": "^4.14.145",
+    "@types/mocha": "^5.2.4",
     "@vue/cli-plugin-babel": "^4.0.0",
     "@vue/cli-plugin-eslint": "^4.0.0",
     "@vue/cli-plugin-pwa": "^4.0.0",
