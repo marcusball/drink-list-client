@@ -1,15 +1,15 @@
-import Entry from "./Entry";
+import EntryPair from "./EntryPair";
 
 export default class Day {
   public date: Date;
 
-  public morning: Entry[] = [];
+  public morning: EntryPair[] = [];
 
-  public afternoon: Entry[] = [];
+  public afternoon: EntryPair[] = [];
 
-  public evening: Entry[] = [];
+  public evening: EntryPair[] = [];
 
-  public night: Entry[] = [];
+  public night: EntryPair[] = [];
 
   constructor(date: Date) {
     this.date = date;

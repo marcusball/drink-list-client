@@ -14,6 +14,7 @@ import { JsonConvert } from "json2typescript";
 import DayComponent from "@/components/Day";
 import Entry from "@/classes/Entry";
 import Day from "@/classes/Day";
+import EntryPair from "@/classes/EntryPair";
 
 import { Component, Vue, Prop } from "vue-property-decorator";
 
@@ -23,7 +24,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
   }
 })
 export default class DrinkList extends Vue {
-  drinks: Entry[] = [];
+  drinks: EntryPair[] = [];
 
   created() {
     this.refreshDrinkList();
@@ -42,9 +43,9 @@ export default class DrinkList extends Vue {
 
         let jsonConvert: JsonConvert = new JsonConvert();
 
-        let drinks: Entry[] = [];
+        let drinks: EntryPair[] = [];
 
-        drinks = jsonConvert.deserializeArray(result.data.drinks, Entry);
+        drinks = jsonConvert.deserializeArray(result.data.drinks, EntryPair);
 
         self.drinks = drinks;
       })
@@ -63,45 +64,45 @@ export default class DrinkList extends Vue {
 
     // Which date was the last one processed from the `drinks` array.
     let currentDate = null;
-    for (const entry of this.drinks) {
+    for (const entryPair of this.drinks) {
       // If this entry's `drankOn` date is not the `currentDate`,
       // then we need to create a new Day object to contain this entry.
       if (
         currentDate == null ||
-        currentDate.getTime() != entry.drankOn!.getTime()
+        currentDate.getTime() != entryPair.entry!.drankOn!.getTime()
       ) {
         // Satisfy typescript
-        if (!entry.drankOn) {
+        if (!entryPair.entry!.drankOn) {
           throw new Error("Drank on date was somehow undefined");
         }
 
-        days.push(new Day(entry.drankOn));
-        currentDate = entry.drankOn;
+        days.push(new Day(entryPair.entry!.drankOn));
+        currentDate = entryPair.entry!.drankOn;
       }
 
       // Get the most recently created day.
       let day = days[days.length - 1];
 
       // Verify I didn't fuck up this algorithm.
-      if (day.date.getTime() != entry.drankOn!.getTime()) {
+      if (day.date.getTime() != entryPair.entry!.drankOn!.getTime()) {
         throw new Error("Assertion failed: mismatched dates!");
       }
 
-      switch (entry.time!.toLowerCase()) {
+      switch (entryPair.entry!.time!.toLowerCase()) {
         case "morning":
-          day.morning.push(entry);
+          day.morning.push(entryPair);
           break;
         case "afternoon":
-          day.afternoon.push(entry);
+          day.afternoon.push(entryPair);
           break;
         case "evening":
-          day.evening.push(entry);
+          day.evening.push(entryPair);
           break;
         case "night":
-          day.night.push(entry);
+          day.night.push(entryPair);
           break;
         default:
-          throw new Error("Unknown entry `time`: " + entry.time);
+          throw new Error("Unknown entry `time`: " + entryPair.entry!.time);
       }
     }
 
