@@ -34,7 +34,7 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import Day from "@/classes/Day";
 import Drink from "@/components/Drink";
 
-import { format } from "date-fns";
+import format from "date-fns/format";
 
 @Component({
   components: {
