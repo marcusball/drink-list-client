@@ -25,8 +25,13 @@ const routes = [
     component: () => import("../views/DrinkList.vue")
   },
   {
-    path: "/day",
-    name: "day",
+    path: "/drinks",
+    name: "drinks",
+    component: () => import("../views/Day.vue")
+  },
+  {
+    path: "/drinks/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})",
+    name: "drinks-date",
     component: () => import("../views/Day.vue")
   }
 ];

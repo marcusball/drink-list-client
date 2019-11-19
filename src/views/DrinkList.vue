@@ -60,7 +60,7 @@ export default class DrinkList extends Vue {
    * @returns Day[]
    */
   get groupedDrinkList() {
-    let days = [];
+    let days: Day[] = [];
 
     // Which date was the last one processed from the `drinks` array.
     let currentDate = null;
@@ -83,27 +83,7 @@ export default class DrinkList extends Vue {
       // Get the most recently created day.
       let day = days[days.length - 1];
 
-      // Verify I didn't fuck up this algorithm.
-      if (day.date.getTime() != entryPair.entry!.drankOn!.getTime()) {
-        throw new Error("Assertion failed: mismatched dates!");
-      }
-
-      switch (entryPair.entry!.time!.toLowerCase()) {
-        case "morning":
-          day.morning.push(entryPair);
-          break;
-        case "afternoon":
-          day.afternoon.push(entryPair);
-          break;
-        case "evening":
-          day.evening.push(entryPair);
-          break;
-        case "night":
-          day.night.push(entryPair);
-          break;
-        default:
-          throw new Error("Unknown entry `time`: " + entryPair.entry!.time);
-      }
+      day.addEntryPair(entryPair);
     }
 
     return days;
