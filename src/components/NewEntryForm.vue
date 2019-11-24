@@ -1,5 +1,13 @@
 <template>
   <div>
+    <div
+      v-for="message in errorMessages"
+      :key="message"
+      class="toast toast-error"
+    >
+      {{ message }}
+    </div>
+
     <form @submit.prevent="newEntry" class="form-horizontal">
       <select v-model="timePeriod">
         <option
@@ -63,10 +71,13 @@ export default class NewEntryForm extends Vue {
 
   private isLoading: boolean = false;
 
+  public errorMessages: string[] = [];
+
   newEntry() {
     const API_BASE = process.env.VUE_APP_API_URL;
 
     this.isLoading = true;
+    this.errorMessages = [];
 
     const form = new URLSearchParams();
     form.append("drank_on", this.isoDate);
@@ -86,15 +97,19 @@ export default class NewEntryForm extends Vue {
     })
       .then(response => response.json())
       .then(result => {
-        this.reset(); // Reset the form to default
+        if (result.status == "success") {
+          this.reset(); // Reset the form to default
 
-        let jsonConvert: JsonConvert = new JsonConvert();
-        let entry: EntryPair = jsonConvert.deserializeObject(
-          result.data.aggregated_entry,
-          EntryPair
-        );
+          let jsonConvert: JsonConvert = new JsonConvert();
+          let entry: EntryPair = jsonConvert.deserializeObject(
+            result.data.aggregated_entry,
+            EntryPair
+          );
 
-        this.$emit("new-entry", entry); // refresh the list
+          this.$emit("new-entry", entry); // refresh the list
+        } else {
+          this.errorMessages = result.messages;
+        }
       })
       .catch(err => {
         alert(err);
