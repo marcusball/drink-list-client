@@ -3,6 +3,8 @@
     <DateTabs :date="date" v-on:date-changed="onDateChanged"></DateTabs>
 
     <DayComponent :day="day"> </DayComponent>
+
+    <NewEntryForm :date="date" @new-entry="onNewEntryCreated"></NewEntryForm>
   </div>
 </template>
 
@@ -11,6 +13,7 @@ import DateTabs from "@/components/DateTabs";
 import DayComponent from "@/components/Day";
 import EntryPair from "@/classes/EntryPair";
 import DayEntries from "@/classes/Day";
+import NewEntryForm from "@/components/NewEntryForm";
 
 import { Component, Vue, Prop } from "vue-property-decorator";
 import { JsonConvert } from "json2typescript";
@@ -20,7 +23,8 @@ import parse from "date-fns/parse";
 @Component({
   components: {
     DateTabs,
-    DayComponent
+    DayComponent,
+    NewEntryForm
   }
 })
 export default class Day extends Vue {
@@ -82,6 +86,10 @@ export default class Day extends Vue {
         this.setDate(newDate);
       })
       .catch(err => alert(err));
+  }
+
+  onNewEntryCreated(newEntry: EntryPair) {
+    this.entries.push(newEntry);
   }
 
   /**
