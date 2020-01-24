@@ -87,7 +87,7 @@ export default class NewEntryForm extends Vue {
     form.append("abv", this.abv);
     form.append("volume", this.volume);
 
-    return fetch(`${API_BASE}/drink`, {
+    return fetch(`${API_BASE}/drinks`, {
       method: "POST",
       body: form,
       headers: {

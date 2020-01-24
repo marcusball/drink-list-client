@@ -58,7 +58,7 @@ export default class Day extends Vue {
     const self = this;
     const API_BASE = process.env.VUE_APP_API_URL;
 
-    return fetch(`${API_BASE}/drink/${format(date, "yyyy-LL-dd")}`)
+    return fetch(`${API_BASE}/days/${format(date, "yyyy-LL-dd")}`)
       .then(resp => resp.json())
       .then(result => {
         if (result.status != "success") {
