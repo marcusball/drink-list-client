@@ -17,13 +17,18 @@ export default class Day {
   }
 
   /**
-   * Add an entry to this Day. 
+   * Add an entry to this Day.
    * @param entryPair The entry pair to add to this day.
    */
   addEntryPair(entryPair: EntryPair) {
     // Verify I didn't fuck up this algorithm.
     if (this.date.getTime() != entryPair.entry!.drankOn!.getTime()) {
-      throw new Error("Assertion failed: mismatched dates! " + format(this.date, 'yyyy-LL-dd') + " vs " + format(entryPair.entry!.drankOn!, "yyyy-LL-dd"));
+      throw new Error(
+        "Assertion failed: mismatched dates! " +
+        format(this.date, "yyyy-LL-dd") +
+        " vs " +
+        format(entryPair.entry!.drankOn!, "yyyy-LL-dd")
+      );
     }
 
     switch (entryPair.entry!.time!.toLowerCase()) {
@@ -42,5 +47,38 @@ export default class Day {
       default:
         throw new Error("Unknown entry `time`: " + entryPair.entry!.time);
     }
+  }
+
+  updateDrink(drink: EntryPair) {
+    Day.updateEntryInTimePeriod(this.morning, drink) ||
+      Day.updateEntryInTimePeriod(this.afternoon, drink) ||
+      Day.updateEntryInTimePeriod(this.evening, drink) ||
+      Day.updateEntryInTimePeriod(this.night, drink);
+  }
+
+  static updateEntryInTimePeriod(
+    timePeriod: EntryPair[],
+    entry: EntryPair
+  ): boolean {
+    const entryId = entry.entry!.id;
+
+    if (!entryId) return false;
+
+    let index = Day.findById(timePeriod, entryId);
+    if (index >= 0) {
+      timePeriod.splice(index, 1, entry);
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   *
+   * @param timePeriod The time period in which to search for the entry
+   * @param entryId The ID of the entry for which to search.
+   * @return The index of the Entry in the `timePeriod` array, if found; otherwise, `-1`.
+   */
+  static findById(timePeriod: EntryPair[], entryId: number): number {
+    return timePeriod.findIndex(drink => drink.entry!.id == entryId);
   }
 }

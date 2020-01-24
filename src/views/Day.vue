@@ -2,7 +2,7 @@
   <div class="container">
     <DateTabs :date="date" v-on:date-changed="onDateChanged"></DateTabs>
 
-    <DayComponent :day="day"> </DayComponent>
+    <DayComponent :day="day" @update:drink="updateEntry"> </DayComponent>
 
     <NewEntryForm :date="date" @new-entry="onNewEntryCreated"></NewEntryForm>
   </div>
@@ -117,6 +117,18 @@ export default class Day extends Vue {
     }
 
     return day;
+  }
+
+  updateEntry(entry: EntryPair) {
+    const entryId = entry.entry!.id;
+
+    const entryIndex = this.entries.findIndex(e => e.entry!.id == entryId);
+
+    if (entryIndex == -1) {
+      return;
+    }
+
+    this.entries.splice(entryIndex, 1, entry);
   }
 }
 </script>

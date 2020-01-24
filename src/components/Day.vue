@@ -4,25 +4,46 @@
 
     <div v-if="day.morning.length">
       <span>Morning</span>
-      <Drink v-for="drink in day.morning" :key="drink.id" :drink="drink">
+      <Drink
+        v-for="drink in day.morning"
+        :key="drink.id"
+        :drink="drink"
+        @update:drink="$emit('update:drink', $event)"
+      >
       </Drink>
     </div>
 
     <div v-if="day.afternoon.length">
       <span>Afternoon</span>
-      <Drink v-for="drink in day.afternoon" :key="drink.id" :drink="drink">
+      <Drink
+        v-for="drink in day.afternoon"
+        :key="drink.id"
+        :drink="drink"
+        @update:drink="$emit('update:drink', $event)"
+      >
       </Drink>
     </div>
 
     <div v-if="day.evening.length">
       <span>Evening</span>
-      <Drink v-for="drink in day.evening" :key="drink.id" :drink="drink">
+      <Drink
+        v-for="drink in day.evening"
+        :key="drink.id"
+        :drink="drink"
+        @update:drink="$emit('update:drink', $event)"
+      >
       </Drink>
     </div>
 
     <div v-if="day.night.length">
       <span>Night</span>
-      <Drink v-for="drink in day.night" :key="drink.id" :drink="drink"> </Drink>
+      <Drink
+        v-for="drink in day.night"
+        :key="drink.id"
+        :drink="drink"
+        @update:drink="$emit('update:drink', $event)"
+      >
+      </Drink>
     </div>
 
     <div class="divider"></div>
