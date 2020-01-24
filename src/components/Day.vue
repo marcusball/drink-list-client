@@ -3,7 +3,7 @@
     <h3>{{ formattedDate }}</h3>
 
     <div v-if="day.morning.length">
-      <span>Morning</span>
+      <h5 class="bg-primary p-2">Morning</h5>
       <Drink
         v-for="drink in day.morning"
         :key="drink.id"
@@ -11,10 +11,12 @@
         @update:drink="$emit('update:drink', $event)"
       >
       </Drink>
+
+      <div class="divider"></div>
     </div>
 
     <div v-if="day.afternoon.length">
-      <span>Afternoon</span>
+      <h5 class="bg-primary p-2">Afternoon</h5>
       <Drink
         v-for="drink in day.afternoon"
         :key="drink.id"
@@ -25,7 +27,7 @@
     </div>
 
     <div v-if="day.evening.length">
-      <span>Evening</span>
+      <h5 class="bg-primary p-2">Evening</h5>
       <Drink
         v-for="drink in day.evening"
         :key="drink.id"
@@ -36,7 +38,7 @@
     </div>
 
     <div v-if="day.night.length">
-      <span>Night</span>
+      <h5 class="bg-primary p-2">Night</h5>
       <Drink
         v-for="drink in day.night"
         :key="drink.id"

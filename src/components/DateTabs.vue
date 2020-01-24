@@ -1,8 +1,8 @@
 <template>
   <div>
-    <button @click="previousDate">&lt;</button>
-    <div>{{ displayDate }}</div>
-    <button @click="nextDate">&gt;</button>
+    <button @click="previousDate" class="btn">&lt;</button>
+    <span class="m-2">{{ displayDate }}</span>
+    <button @click="nextDate" class="btn">&gt;</button>
   </div>
 </template>
 

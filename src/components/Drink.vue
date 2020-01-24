@@ -9,14 +9,20 @@
       <span>{{ drink.entry.quantityString }}</span>
       <button class="btn" @click="incrementQuantity">+</button>
     </div>
-    <div class="column col-3 text-left">{{ drink.entry.name }}</div>
-    <div class="column col-1 text-left">{{ drink.entry.abvString }}</div>
-    <div class="column col-2 text-left">{{ drink.entry.volumeString }}</div>
-    <div class="column col-2 text-left">
-      {{ drink.aggregate.drinksString }} drinks
+    <div class="column col-3 text-left">
+      <span>{{ drink.entry.name }}</span>
+    </div>
+    <div class="column col-1 text-left">
+      <span>{{ drink.entry.abvString }}</span>
     </div>
     <div class="column col-2 text-left">
-      {{ drink.aggregate.volumeString }}
+      <span>{{ drink.entry.volumeString }}</span>
+    </div>
+    <div class="column col-2 text-left">
+      <span>{{ drink.aggregate.drinksString }} drinks</span>
+    </div>
+    <div class="column col-2 text-left">
+      <span>{{ drink.aggregate.volumeString }}</span>
     </div>
   </div>
 </template>
