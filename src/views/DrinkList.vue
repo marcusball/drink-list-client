@@ -4,6 +4,7 @@
       v-for="day in groupedDrinkList"
       :key="day.date.getTime()"
       :day="day"
+      @update:drink="updateEntry"
     >
     </DayComponent>
   </div>
@@ -24,7 +25,7 @@ import { Component, Vue, Prop } from "vue-property-decorator";
   }
 })
 export default class DrinkList extends Vue {
-  drinks: EntryPair[] = [];
+  entries: EntryPair[] = [];
 
   created() {
     this.refreshDrinkList();
@@ -47,7 +48,7 @@ export default class DrinkList extends Vue {
 
         drinks = jsonConvert.deserializeArray(result.data.drinks, EntryPair);
 
-        self.drinks = drinks;
+        self.entries = drinks;
       })
       .catch(err => {
         alert(err);
@@ -64,7 +65,7 @@ export default class DrinkList extends Vue {
 
     // Which date was the last one processed from the `drinks` array.
     let currentDate = null;
-    for (const entryPair of this.drinks) {
+    for (const entryPair of this.entries) {
       // If this entry's `drankOn` date is not the `currentDate`,
       // then we need to create a new Day object to contain this entry.
       if (
@@ -87,6 +88,18 @@ export default class DrinkList extends Vue {
     }
 
     return days;
+  }
+
+  updateEntry(entry: EntryPair) {
+    const entryId = entry.entry!.id;
+
+    const entryIndex = this.entries.findIndex(e => e.entry!.id == entryId);
+
+    if (entryIndex == -1) {
+      return;
+    }
+
+    this.entries.splice(entryIndex, 1, entry);
   }
 }
 </script>
