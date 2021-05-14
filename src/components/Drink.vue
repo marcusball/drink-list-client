@@ -7,7 +7,11 @@
     </div>
     <div class="column col-1 text-left">
       <span>{{ drink.entry.quantityString }}</span>
-      <button class="btn" @click="incrementQuantity">+</button>
+      <button 
+        class="btn" 
+        @click="incrementQuantity"
+        v-if="showIncrement"
+        >+</button>
     </div>
     <div class="column col-3 text-left">
       <span>{{ drink.entry.name }}</span>
@@ -35,6 +39,10 @@ import { JsonConvert } from "json2typescript";
 export default defineComponent({
   props: {
     drink: Object as PropType<EntryPair>,
+    showIncrement: {
+      type: Boolean,
+      default: true,
+    }
   },
 
   methods: {

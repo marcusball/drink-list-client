@@ -8,6 +8,7 @@
         v-for="drink in day.morning"
         :key="drink.id"
         :drink="drink"
+        :showIncrement="showIncrement"
         @update:drink="$emit('update:drink', $event)"
       >
       </Drink>
@@ -21,6 +22,7 @@
         v-for="drink in day.afternoon"
         :key="drink.id"
         :drink="drink"
+        :showIncrement="showIncrement"
         @update:drink="$emit('update:drink', $event)"
       >
       </Drink>
@@ -32,6 +34,7 @@
         v-for="drink in day.evening"
         :key="drink.id"
         :drink="drink"
+        :showIncrement="showIncrement"
         @update:drink="$emit('update:drink', $event)"
       >
       </Drink>
@@ -43,6 +46,7 @@
         v-for="drink in day.night"
         :key="drink.id"
         :drink="drink"
+        :showIncrement="showIncrement"
         @update:drink="$emit('update:drink', $event)"
       >
       </Drink>
@@ -66,6 +70,10 @@ export default defineComponent({
 
   props: {
     day: Object as PropType<Day>,
+    showIncrement: {
+      type: Boolean,
+      default: true,
+    }
   },
 
   computed: {

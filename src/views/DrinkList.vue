@@ -4,6 +4,7 @@
       v-for="day in groupedDrinkList"
       :key="day.date.getTime()"
       :day="day"
+      :showIncrement="false"
       @update:drink="updateEntry"
     >
     </DayComponent>
