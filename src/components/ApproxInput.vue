@@ -2,8 +2,8 @@
   <div>
     <input
       type="text"
-      @input="$emit('input', $event.target.value)"
-      :value="inputValue"
+      @input="$emit('update:modelValue', $event.target.value)"
+      :value="modelValue"
     />
   </div>
 </template>
@@ -14,7 +14,8 @@ import { defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
-    inputValue: String,
-  }
+    modelValue: String,
+  },
+  emits: ['update:modelValue'],
 });
 </script>
