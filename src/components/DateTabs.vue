@@ -23,7 +23,7 @@ export default defineComponent({
   },
 
   computed: {
-    displayDate(): String {
+    displayDate(): string {
       if (isToday(this.date)) {
         return "Today";
       } else if (isYesterday(this.date)) {
