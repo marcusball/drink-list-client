@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h3>{{ formattedDate }}</h3>
+    <h3>
+      <a v-if="enableDayLink" :href="day.linkToDayPage">{{ formattedDate }}</a>
+      <span v-else>{{ formattedDate }}</span>
+    </h3>
 
     <div v-if="day.morning.length">
       <h5 class="bg-primary p-2">Morning</h5>
@@ -70,7 +73,19 @@ export default defineComponent({
 
   props: {
     day: Object as PropType<Day>,
+
+    /**
+     * When enabled, show the button for incrementing drink quantities. 
+     */
     showIncrement: {
+      type: Boolean,
+      default: true,
+    },
+
+    /**
+     * When enabled, have the header link to the page for viewing/modifying that specific date.
+     */
+    enableDayLink: {
       type: Boolean,
       default: true,
     }
@@ -79,7 +94,7 @@ export default defineComponent({
   computed: {
     formattedDate(): string {
       return format(this.day!.date, "d MMM yyyy");
-    }
+    },
   }
 });
 

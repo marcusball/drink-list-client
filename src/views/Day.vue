@@ -2,7 +2,7 @@
   <div class="container">
     <DateTabs :date="date" v-on:date-changed="onDateChanged"></DateTabs>
 
-    <DayComponent :day="day" @update:drink="updateEntry"> </DayComponent>
+    <DayComponent :day="day" @update:drink="updateEntry" :enableDayLink="false"> </DayComponent>
 
     <NewEntryForm :date="date" @new-entry="onNewEntryCreated"></NewEntryForm>
   </div>

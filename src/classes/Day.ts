@@ -56,6 +56,10 @@ export default class Day {
       Day.updateEntryInTimePeriod(this.night, drink);
   }
 
+  get linkToDayPage(): string {
+    return "/drinks/" + format(this.date, "yyyy/MM/dd");
+  }
+
   static updateEntryInTimePeriod(
     timePeriod: EntryPair[],
     entry: EntryPair
@@ -64,7 +68,7 @@ export default class Day {
 
     if (!entryId) return false;
 
-    let index = Day.findById(timePeriod, entryId);
+    const index = Day.findById(timePeriod, entryId);
     if (index >= 0) {
       timePeriod.splice(index, 1, entry);
       return true;
