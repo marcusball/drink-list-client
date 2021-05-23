@@ -13,6 +13,7 @@
         :drink="drink"
         :showIncrement="showIncrement"
         @update:drink="$emit('update:drink', $event)"
+        @drinkDeleted="$emit('drinkDeleted', $event)"
       >
       </Drink>
 
@@ -27,6 +28,7 @@
         :drink="drink"
         :showIncrement="showIncrement"
         @update:drink="$emit('update:drink', $event)"
+        @drinkDeleted="$emit('drinkDeleted', $event)"
       >
       </Drink>
     </div>
@@ -39,6 +41,7 @@
         :drink="drink"
         :showIncrement="showIncrement"
         @update:drink="$emit('update:drink', $event)"
+        @drinkDeleted="$emit('drinkDeleted', $event)"
       >
       </Drink>
     </div>
@@ -51,6 +54,7 @@
         :drink="drink"
         :showIncrement="showIncrement"
         @update:drink="$emit('update:drink', $event)"
+        @drinkDeleted="$emit('drinkDeleted', $event)"
       >
       </Drink>
     </div>
@@ -90,6 +94,8 @@ export default defineComponent({
       default: true,
     }
   },
+
+  emits: ["update:drink", "drinkDeleted"],
 
   computed: {
     formattedDate(): string {

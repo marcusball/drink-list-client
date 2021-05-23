@@ -19,7 +19,7 @@
     <div class="column col-1 text-left">
       <span>{{ drink.entry.abvString }}</span>
     </div>
-    <div class="column col-2 text-left">
+    <div class="column col-1 text-left">
       <span>{{ drink.entry.volumeString }}</span>
     </div>
     <div class="column col-2 text-left">
@@ -27,6 +27,12 @@
     </div>
     <div class="column col-2 text-left">
       <span>{{ drink.aggregate.volumeString }}</span>
+    </div>
+    <div class="column col-1 text-left">
+      <button 
+        class="btn btn-action"
+        @click.prevent="deleteEntry"
+      ><i class="icon icon-delete"></i></button>
     </div>
   </div>
 </template>
@@ -44,6 +50,8 @@ export default defineComponent({
       default: true,
     }
   },
+
+  emits: ["update:drink", "drinkDeleted"],
 
   methods: {
     incrementQuantity() {
@@ -69,6 +77,25 @@ export default defineComponent({
           alert(err);
         });
     },
+
+    deleteEntry() {
+      const API_BASE = process.env.VUE_APP_API_URL;
+      const entryId = this.drink!.entry!.id; // @TODO: Fix types to remove ! assertion?
+
+      fetch(`${API_BASE}/drinks/${entryId}`, {
+        method: "DELETE"
+      })
+        .then(response => response.json())
+        .then(result => {
+          if (result.status == "success") {
+            this.$emit("drinkDeleted", entryId);
+          }
+          // @TODO: Display error messages
+        })
+        .catch(err => {
+          alert(err);
+        });
+    }
   }
 });
 

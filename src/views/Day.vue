@@ -2,7 +2,12 @@
   <div class="container">
     <DateTabs :date="date" v-on:date-changed="onDateChanged"></DateTabs>
 
-    <DayComponent :day="day" @update:drink="updateEntry" :enableDayLink="false"> </DayComponent>
+    <DayComponent 
+      :day="day"
+      :enableDayLink="false"
+      @update:drink="updateEntry" 
+      @drinkDeleted="deleteEntry"
+    > </DayComponent>
 
     <NewEntryForm :date="date" @new-entry="onNewEntryCreated"></NewEntryForm>
   </div>
@@ -121,6 +126,16 @@ export default defineComponent({
       }
 
       this.entries.splice(entryIndex, 1, entry);
+    },
+
+    deleteEntry(entryId: number) {
+      const entryIndex = this.entries.findIndex(e => e.entry!.id == entryId);
+
+      if (entryIndex == -1) {
+        return;
+      }
+
+      this.entries.splice(entryIndex, 1);
     },
   },
 
